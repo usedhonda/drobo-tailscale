@@ -1,0 +1,20 @@
+name: Verify
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check shell syntax and build DroboApp
+        run: |
+          bash -n build.sh
+          sh -n src/install.sh src/service.sh src/uninstall.sh
+          ./build.sh
+          tar -tzf dist/tailscale.tgz >/dev/null
