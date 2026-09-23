@@ -1,5 +1,4 @@
 #!/bin/sh
-set -eu
 
 . /etc/service.subr
 
