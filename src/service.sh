@@ -28,7 +28,8 @@ start() {
 }
 
 stop() {
-  :
+  start-stop-daemon -K -o -x "${daemon}" -p "${pidfile}"
+  rm -f "${pidfile}" "${socket}"
 }
 
 main "$@"
