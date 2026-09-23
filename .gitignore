@@ -2,3 +2,10 @@ dist/
 download/
 *.tgz
 *.log
+.local/
+.env
+.env.*
+*.state
+*.key
+*.pem
+docs/log/codex/
