@@ -28,7 +28,7 @@ start() {
 }
 
 stop() {
-  start-stop-daemon -K -o -x "${daemon}" -p "${pidfile}"
+  start-stop-daemon -K -o -x "${daemon}" -p "${pidfile}" || return $?
   rm -f "${pidfile}" "${socket}"
 }
 
