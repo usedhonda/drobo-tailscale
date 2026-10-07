@@ -16,5 +16,6 @@ jobs:
         run: |
           bash -n build.sh
           sh -n src/install.sh src/service.sh src/uninstall.sh
+          python3 -m unittest discover -s tests -v
           ./build.sh
           tar -tzf dist/tailscale.tgz >/dev/null
