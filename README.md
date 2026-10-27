@@ -8,7 +8,7 @@ The repository contains build scripts and DroboApp service files, **not** Tailsc
 
 The build pins **Tailscale 1.104.2** and the SHA-256 of its official Linux ARM archive. This release includes the certificate-trust fix described in [TS-2026-013](https://tailscale.com/security-bulletins#ts-2026-013). It must not be described as the fix for the later Tailworm findings; consult Tailscale's [SSH investigation update](https://tailscale.com/ssh-investigation-update) for those fixes.
 
-Building and checking the archive does not establish that the new version runs on a B810n. The 1.104.2 package still requires device verification.
+Building and checking the archive alone does not establish that a new version runs on a B810n. On 2026-10-27, the 1.104.2 binaries and service were also verified on the same B810n: the daemon reported `Running`, retained its original tailnet address, and allowed a fresh SSH connection and access to the authenticated Resilio WebUI over Tailscale. The update used an independent LAN SSH connection with the previous binaries and node state backed up for rollback. Post-reboot persistence remains unverified.
 
 For an existing installation, preserve `var/tailscaled.state`, which contains the authenticated node identity. Before stopping or upgrading the daemon, verify a working management connection independent of Tailscale, such as SSH over the local network, and a recovery method for a failed start. Keep that independent connection open during the update. If Tailscale is the only working access path, prepare the package without restarting the installed service. After applying an update, verify the running daemon's version, tailnet connectivity, and access to the required local services.
 
