@@ -1,8 +1,16 @@
 # Tailscale DroboApp for Drobo B810n
 
-This repository packages Tailscale's official Linux ARM binaries as a DroboApp for the Drobo B810n. The package was installed and authenticated on one B810n running ARMv7 and kernel 3.2.96-3. The node appeared in its tailnet, and a `tailscale ping` to another tailnet device succeeded. A Resilio Sync WebUI on TCP 8888 was reached through the Drobo's Tailscale IP. This is a device-specific verification, not a compatibility claim for other Drobo models.
+This repository packages Tailscale's official Linux ARM binaries as a DroboApp for the Drobo B810n. The original 1.102.4 package was installed and authenticated on one B810n running ARMv7 and kernel 3.2.96-3. The node appeared in its tailnet, and a `tailscale ping` to another tailnet device succeeded. A Resilio Sync WebUI on TCP 8888 was reached through the Drobo's Tailscale IP. This is a device-specific verification, not a compatibility claim for other Drobo models.
 
 The repository contains build scripts and DroboApp service files, **not** Tailscale credentials, node state, downloaded binaries, or the generated package.
+
+## Packaged version and upgrades
+
+The build pins **Tailscale 1.104.2** and the SHA-256 of its official Linux ARM archive. This release includes the certificate-trust fix described in [TS-2026-013](https://tailscale.com/security-bulletins#ts-2026-013). It must not be described as the fix for the later Tailworm findings; consult Tailscale's [SSH investigation update](https://tailscale.com/ssh-investigation-update) for those fixes.
+
+Building and checking the archive does not establish that the new version runs on a B810n. The 1.104.2 package still requires device verification.
+
+For an existing installation, preserve `var/tailscaled.state`, which contains the authenticated node identity. Before stopping or upgrading the daemon, verify a working management connection independent of Tailscale, such as SSH over the local network, and a recovery method for a failed start. Keep that independent connection open during the update. If Tailscale is the only working access path, prepare the package without restarting the installed service. After applying an update, verify the running daemon's version, tailnet connectivity, and access to the required local services.
 
 ## Build
 

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-version=1.102.4
+version=1.104.2
 archive="tailscale_${version}_arm.tgz"
 url="https://pkgs.tailscale.com/stable/${archive}"
-expected_sha256=b981a59cb85fb923ee6e1860ee6934772c83a840a6627f0dbfd7711ed690b869
+expected_sha256=b694ff9c67235da98798b9592a0cc900bc9d1613041f77722ec9bf4ce2d215cf
 mkdir -p download dist
 
 if [[ ! -f "download/${archive}" ]]; then
@@ -26,5 +26,5 @@ cp "${stage}/tailscale_${version}_arm/tailscaled" "${stage}/app/"
 cp src/install.sh src/service.sh src/uninstall.sh "${stage}/"
 chmod 755 "${stage}/app/tailscale" "${stage}/app/tailscaled" "${stage}/service.sh"
 chmod 700 "${stage}/var"
-tar -czf dist/tailscale.tgz -C "${stage}" app var install.sh service.sh uninstall.sh
+COPYFILE_DISABLE=1 tar -czf dist/tailscale.tgz -C "${stage}" app var install.sh service.sh uninstall.sh
 echo "Built dist/tailscale.tgz"

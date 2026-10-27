@@ -4,7 +4,7 @@
 
 framework_version="2.1"
 name="tailscale"
-version="1.102.4"
+version="1.104.2"
 description="Tailscale userspace daemon"
 depends=""
 
